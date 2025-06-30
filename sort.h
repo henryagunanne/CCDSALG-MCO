@@ -1,13 +1,17 @@
 
-#include "point.h"
-
 typedef struct {
     double r;
     double theta;
 } Polar;
 
-void polarAngle(Point points[], Polar polarArr[], Point anchor, int n);
 
-void bubbleSortWithPoints(Point points[], Polar polarArr[], int n);
+void polarAngle(Point pts[], Polar polarArr[], Point anchor, int n);
 
-void heapSortWithPoints(Point points[], Polar polarArr[], int n); 
+
+void bubbleSortWithPoints(Point pts[], Polar polarArr[], int n);
+
+
+void heapSortWithPoints(Point pts[], Polar polarArr[], int n);
+
+
+double orientation(Point p, Point q, Point r);
