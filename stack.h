@@ -1,5 +1,8 @@
-
+#ifndef STACK_H
 #define STACK_H
+
+#include "point.h"
+
 typedef struct {
     Point items[MAX_POINT_COUNT];
     int topIndex;
@@ -13,3 +16,5 @@ Point POP(Stack *S);
 Point TOP(Stack *S);
 Point NEXT_TO_TOP(Stack *S);
 int GET_STACK(Stack *S, Point outArray[]);
+
+#endif
