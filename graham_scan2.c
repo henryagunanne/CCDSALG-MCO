@@ -1,4 +1,7 @@
-#include "graham_scan2.h"
+#include <stdio.h>
+#include <time.h>
+#include "sort.h"
+#include "stack.h"
 
 int findAnchorPoint(Point pts[], int n){
     
