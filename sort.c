@@ -1,10 +1,7 @@
 
-#include <math.h>
+
 #include "sort.h"
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
 
 void polarAngle(Point pts[], Polar polarArr[], Point anchor, int n) {
     for (int i = 0; i < n; i++) {
