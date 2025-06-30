@@ -1,78 +1,57 @@
 #include "stack.h"
 
-// CREATE
 void CREATE(Stack *S) {
     S->topIndex = -1;
 }
 
-// ISEMPTY
 int ISEMPTY(Stack *S) {
-    int result;
     if (S->topIndex < 0) {
-        result = 1;
+        return 1;
     } else {
-        result = 0;
-    } 
-    return result;
+        return 0;
+    }
 }
 
-// ISFULL
 int ISFULL(Stack *S) {
-    int result;
     if (S->topIndex >= MAX_POINT_COUNT - 1) {
-        result = 1;
+        return 1;
     } else {
-        result = 0;
+        return 0;
     }
-    return result;
 }
 
-// PUSH
 void PUSH(Stack *S, Point elem) {
-    if (ISFULL(S) == 0) {
-        S->topIndex++;
-        S->items[S->topIndex] = elem;
+    if (!ISFULL(S)) {
+        S->items[++S->topIndex] = elem;
     }
 }
 
-// POP
 Point POP(Stack *S) {
-    Point result;
-    if (ISEMPTY(S) == 1) {
-        result.x = 0.0;
-        result.y = 0.0;
-    } else {
-        result = S->items[S->topIndex];
-        S->topIndex--;
+    Point temp = {0.0, 0.0};
+    if (!ISEMPTY(S)) {
+        temp = S->items[S->topIndex--];
     }
-    return result;
+    return temp;
 }
 
-// TOP
 Point TOP(Stack *S) {
-    Point result;
-    if (ISEMPTY(S) == 1) {
-        result.x = 0.0;
-        result.y = 0.0;
+    if (!ISEMPTY(S)) {
+        return S->items[S->topIndex];
     } else {
-        result = S->items[S->topIndex];
+        Point empty = {0.0, 0.0};
+        return empty;
     }
-    return result;
 }
 
-// NEXT_TO_TOP
 Point NEXT_TO_TOP(Stack *S) {
-    Point result;
-    if (S->topIndex < 1) {
-        result.x = 0.0;
-        result.y = 0.0;
+    if (S->topIndex >= 1) {
+        return S->items[S->topIndex - 1];
     } else {
-        result = S->items[S->topIndex - 1];
+        Point empty = {0.0, 0.0};
+        return empty;
     }
-    return result;
 }
 
-// GET_STACK
 int GET_STACK(Stack *S, Point outArray[]) {
     int count = S->topIndex + 1;
     for (int i = 0; i < count; i++) {
