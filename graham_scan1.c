@@ -6,7 +6,7 @@ void swapPoints(Point pts[], int i, int j) {
     Point temp = pts[i];
     pts[i] = pts[j];
     pts[j] = temp;
-}
+} 
 
 int findAnchor(Point pts[], int n) {
     int index = 0;
