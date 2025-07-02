@@ -94,12 +94,12 @@ void graham_scan2 (Point pts[], int n, FILE *fout){
     printf("Elapsed time (Heap Sort): %.3f ms\n", elapsed);
     
     // Step 7: Write results to output file
-    fprintf(fout, "%d\n",n);
-        Point result[MAX_POINT_COUNT];
-        int count = GET_STACK(&hull, result);
-        for (int i = 0; i < count; i++) {
-            fprintf(fout, "%.6f  %.6f\n", result[i].x, result[i].y);
-        }
+    Point result[MAX_POINT_COUNT];
+    int count = GET_STACK(&hull, result);
+    fprintf(fout, "%d\n",count);
+    for (int i = 0; i < count; i++) {
+        fprintf(fout, "%.6f  %.6f\n", result[i].x, result[i].y);
+     }
 
 
 }
