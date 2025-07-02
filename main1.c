@@ -15,31 +15,49 @@
 int graham_scan1(Point pts[], int n, Point hull[]);
 
 int main() {
-    FILE *fin = fopen("input-circle.txt", "r");
-    if (!fin) return 1;
+    char inputFile[100];
+    char outputFile[200];
+    FILE *fIn, *fOut;
+    int n, m;
 
-    int n;
-    if (fscanf(fin, "%d", &n) != 1) {
-        fclose(fin);
+    // Ask for input filename
+    printf("Enter the input filename (e.g., MYDATA.TXT): ");
+    scanf("%s", inputFile);
+
+    // Ask for output filename
+    printf("Enter the output filename (e.g., MYHULL.TXT): ");
+    scanf("%s", outputFile);
+
+    // Open input file
+    fIn = fopen(inputFile, "r");
+    if(fIn == NULL){
+        frintf(stderr, "Error opening input file");
+        return 1;
+    }
+
+    // Read points from input file
+    Point pts[MAX_POINT_COUNT];
+    if (fscanf(fIn, "%d", &n) != 1) {
+        fclose(fIn);
         return 1;
     }
 
     if (n < 1 || n > MAX_POINT_COUNT) {
-        fclose(fin);
+        fclose(fIn);
         return 1;
     }
 
-    Point pts[MAX_POINT_COUNT];
+    // Read the rest of the file 
     for (int i = 0; i < n; i++) {
-        if (fscanf(fin, "%lf %lf", &pts[i].x, &pts[i].y) != 2) {
-            fclose(fin);
+        if (fscanf(fIn, "%lf %lf", &pts[i].x, &pts[i].y) != 2) {
+            fclose(fIn);
             return 1;
         }
     }
-    fclose(fin);
+    fclose(fIn);
 
+    // Call graham_scan1
     Point hull[MAX_POINT_COUNT];
-    int m;
 
     if (n < 3) {
         for (int i = 0; i < n; i++) {
@@ -50,10 +68,19 @@ int main() {
         m = graham_scan1(pts, n, hull);
     }
 
-    printf("%d\n", m);
-    for (int i = 0; i < m; i++) {
-        printf("%.6f %.6f\n", hull[i].x, hull[i].y);
+    // Write result to output file
+    fOut = fopen(outputFile, "w");
+    if (fOut == NULL) {
+        frintf(stderr, "Error opening output file");
+        return 1;
     }
+
+    fprintf(fOut, "%d\n", m);
+    for (int i = 0; i < m; i++) {
+        fprintf(fOut, "%.6f %.6f\n", hull[i].x, hull[i].y);
+    }
+
+    printf("Convex hull written to %s\n", outputFile);
 
     return 0;
 }

@@ -6,7 +6,6 @@
  */
 
 #include <stdio.h>
-#include "stack.h"
 #include "sort.h"
 #include "graham_scan2.c"
 
