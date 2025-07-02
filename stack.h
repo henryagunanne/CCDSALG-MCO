@@ -1,13 +1,31 @@
+/**
+ * Programmer: [Your Name]
+ * Code Tester: [Tester's Name]
+ * 
+ * Description: Stack implementation header for storing Point data.
+ */
+
 #ifndef STACK_H
 #define STACK_H
 
-#include "point.h"
+/// @file stack.h
+/// @brief Defines a stack structure and operations for storing 2D points.
 
+#include "point.h"  // Include definition for Point and MAX_POINT_COUNT
+
+
+/**
+ * @struct Stack
+ * @brief A stack data structure for storing Points.
+ *
+ * This stack supports typical LIFO operations such as push, pop, and top.
+ */
 typedef struct {
-    Point items[MAX_POINT_COUNT];
-    int topIndex;
+    Point items[MAX_POINT_COUNT]; ///< Array to hold stack elements.
+    int topIndex;                 ///< Index of the top element in the stack.
 } Stack;
 
+// Function Prototypes
 void CREATE(Stack *S);
 int ISEMPTY(Stack *S);
 int ISFULL(Stack *S);

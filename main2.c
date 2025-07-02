@@ -1,8 +1,14 @@
+/**
+ * Programmer: [Your Name]
+ * Code Tester: [Tester's Name]
+ * 
+ * Description: Driver program for testing graham_scan1 (uses bubble sort).
+ */
 
 #include <stdio.h>
 #include "stack.h"
 #include "sort.h"
-#include "graham_scan2.h"
+#include "graham_scan2.c"
 
 int main() {
     FILE *fin, *fout;

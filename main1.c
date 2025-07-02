@@ -1,3 +1,9 @@
+/**
+ * Programmer: [Your Name]
+ * Code Tester: [Tester's Name]
+ * 
+ * Description: Driver program for testing graham_scan2 (uses heap sort).
+ */
 
 #include <stdio.h>
 #include "point.h"
