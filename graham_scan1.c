@@ -1,12 +1,10 @@
-#include <stdio.h>
-#include <time.h>
-#include <math.h>
+#include "graham_scan1.h"
 
 void swapPoints(Point pts[], int i, int j) {
     Point temp = pts[i];
     pts[i] = pts[j];
     pts[j] = temp;
-} 
+}
 
 int findAnchor(Point pts[], int n) {
     int index = 0;
