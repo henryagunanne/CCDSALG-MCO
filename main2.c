@@ -7,35 +7,45 @@
 
 #include <stdio.h>
 #include "sort.h"
-#include "graham_scan2.c"
+#include "graham_scan2.h"
 
 int main() {
-    FILE *fin, *fout;
+    FILE *fIn, *fOut;
     int n;
     Point pts[MAX_POINT_COUNT];
-    char inputFile[21] = "input-circle.txt";
+    char inputFile[100];
+    char outputFile[100];
     int i;
     
-    fin = fopen(inputFile, "r");
-    while (fin == NULL) {
-        printf("Error: Cannot open input file.\n");
-        printf("Try Entering Another File Name!(eg.Filename.txt)\n");
+    // Ask for input filename
+    printf("Enter the input filename (e.g., MYDATA.TXT): ");
+    scanf("%s", inputFile);
+
+    // Ask for output filename
+    printf("Enter the output filename (e.g., MYHULL.TXT): ");
+    scanf("%s", outputFile);
+
+    fIn = fopen(inputFile, "r");
+    while (fIn == NULL) {
+        frintf(stderr, "Error: Cannot open input file.\n");
+        printf("Try Entering Another File Name!(eg.Filename.txt): \n");
         scanf("%s", inputFile);
-        fin = fopen(inputFile, "r");
+        fIn = fopen(inputFile, "r");
     }
     
-    fscanf(fin, "%d", &n);
+    // Read points from the input file
+    fscanf(fIn, "%d", &n);
     for (i = 0; i < n; i++) {
-        fscanf(fin, "%lf %lf", &pts[i].x, &pts[i].y);
+        fscanf(fIn, "%lf %lf", &pts[i].x, &pts[i].y);
     }
-    fclose(fin);
+    fclose(fIn);
     
-    fout = fopen("output-circle.txt","w");
-    graham_scan2(pts, n, fout);
-    fclose(fout);
+    fOut = fopen(outputFile, "w");
+    graham_scan2(pts, n, fOut);
+
+    fclose(fOut);
     
-    printf("Convex hull written to output.txt\n");
+    printf("Convex hull written to %s\n", outputFile);
 
     return 0;
-    
 }

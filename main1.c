@@ -10,7 +10,7 @@
 #include "stack.h"
 #include "sort.h"
 
-#include "graham_scan1.c"
+#include "graham_scan1.h"
 
 int graham_scan1(Point pts[], int n, Point hull[]);
 
@@ -31,7 +31,7 @@ int main() {
     // Open input file
     fIn = fopen(inputFile, "r");
     if(fIn == NULL){
-        frintf(stderr, "Error opening input file");
+        fprintf(stderr, "Error opening input file");
         return 1;
     }
 
@@ -70,17 +70,14 @@ int main() {
 
     // Write result to output file
     fOut = fopen(outputFile, "w");
-    if (fOut == NULL) {
-        frintf(stderr, "Error opening output file");
-        return 1;
-    }
 
     fprintf(fOut, "%d\n", m);
     for (int i = 0; i < m; i++) {
         fprintf(fOut, "%.6f %.6f\n", hull[i].x, hull[i].y);
     }
 
+    fclose(fOut);
     printf("Convex hull written to %s\n", outputFile);
-
+    
     return 0;
 }
