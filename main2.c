@@ -27,8 +27,8 @@ int main() {
 
     fIn = fopen(inputFile, "r");
     while (fIn == NULL) {
-        frintf(stderr, "Error: Cannot open input file.\n");
-        printf("Try Entering Another File Name!(eg.Filename.txt): \n");
+        fprintf(stderr, "Error: Cannot open input file.\n");
+        printf("Try Entering Another File Name!(eg.Filename.txt): ");
         scanf("%s", inputFile);
         fIn = fopen(inputFile, "r");
     }

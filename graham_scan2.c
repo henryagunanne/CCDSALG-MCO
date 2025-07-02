@@ -5,10 +5,7 @@
  * Description: Graham Scan implementation using Heap Sort for convex hull. Outputs to file.
  */
 
-#include <stdio.h>
-#include <time.h>
-#include "sort.h"
-#include "stack.h"
+#include "graham_scan2.h"
 
 
 /**

@@ -5,11 +5,7 @@
  * Description: Graham Scan implementation using Bubble Sort for convex hull.
  */
 
-#include <stdio.h>
-#include <time.h>
-#include <math.h>
-#include "sort.h"
-#include "stack.h"
+#include "graham_scan1.h"
 
 
 /**
@@ -58,7 +54,9 @@ int findAnchor(Point pts[], int n) {
  * @param hull Output array containing the points on the convex hull in counter-clockwise order.
  * @return Number of points in the convex hull.
  */
-int graham_scan1(Point pts[], int n, Point hull[]) {
+void graham_scan1(Point pts[], int n, Point hull[]) {
+
+    clock_t start = clock();
 
     // Step 1: Find anchor point and move it to index 0
     int anchorIndex = findAnchor(pts, n);
@@ -94,6 +92,11 @@ int graham_scan1(Point pts[], int n, Point hull[]) {
         PUSH(&S, pts[i]);
     }
 
-    // Step 6: Extract points from the stack into the output hull array
-    return GET_STACK(&S, hull);
+    // Step 6: Time measurement complete
+    clock_t end = clock();  // End timing
+    double elapsed = ((double)(end - start)) * 1000.0 / CLOCKS_PER_SEC;
+    printf("Elapsed time (Bubble Sort): %.3f ms\n", elapsed);
+
+    
+    // return GET_STACK(&S, hull);
 }
