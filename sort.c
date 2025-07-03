@@ -43,9 +43,7 @@ void polarAngle(Point pts[], Polar polarArr[], Point anchor, int n) {
  * @return A positive value for counter-clockwise, negative for clockwise, and 0 for colinear.
  */
 double orientation(Point p, Point q, Point r) {
-    double val = (q.y - p.y) * (r.x - q.x) - (q.x - p.x) * (r.y - q.y);
-    if (fabs(val) < EPSILON) return 0;     // colinear
-    return (val > 0) ? 1 : -1;              // clockwise or counter-clockwise
+    return (q.x - p.x) * (r.y - q.y) - (q.y - p.y) * (r.x - q.x);
 }
 
 
