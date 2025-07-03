@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Inocencio Chazwick
+ * Code Tester: Agunanne Henry
  * 
  * Description: Header file defining the Point struct and constants.
  */

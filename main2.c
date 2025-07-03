@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Agunanne Henry, Lu Qinpei
+ * Code Tester: Agunanne Henry, Lu Qinpei
  * 
  * Description: Driver program for testing graham_scan1 (uses bubble sort).
  */

@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Lu Qinpei
+ * Code Tester: Agunanne Henry, Lu Qinpei
  * 
  * Description: Graham Scan implementation using Heap Sort for convex hull. Outputs to file.
  */

@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Agunanne Henry, Inocencio Chazwick
+ * Code Tester: Agunanne Henry, Inocencio Chazwick
  * 
  * Description: Driver program for testing graham_scan2 (uses heap sort).
  */

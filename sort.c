@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Inocencio Chazwick, Lu Qinpei
+ * Code Tester: Agunanne Henry
  * 
  * Description: Polar angle calculation and sorting algorithms (bubble and heap sort).
  */

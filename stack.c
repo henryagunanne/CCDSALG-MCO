@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Agunanne Henry, Inocencio Chazwick, Lu Qinpei
+ * Code Tester: Agunanne Henry
  * 
  * Description: Stack implementation source file for managing Point data.
  */

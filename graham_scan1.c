@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Agunanne Henry, Inocencio Chazwick
+ * Code Tester: Agunanne Henry, Inocencio Chazwick
  * 
  * Description: Graham Scan implementation using Bubble Sort for convex hull.
  */

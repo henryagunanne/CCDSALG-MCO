@@ -1,6 +1,6 @@
 /**
- * Programmer: [Your Name]
- * Code Tester: [Tester's Name]
+ * Programmer: Inocencio Chazwick, Lu Qinpei
+ * Code Tester: Agunanne Henry
  * 
  * Description: Stack implementation header for storing Point data.
  */
