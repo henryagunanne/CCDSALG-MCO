@@ -25,7 +25,6 @@ void CREATE(Stack *S) {
  */
 int ISEMPTY(Stack *S) {
     if (S->topIndex < 0) {
-        fprintf(stderr, "Stack underflow\n");
         return 1;
     } else {
         return 0;
@@ -41,7 +40,6 @@ int ISEMPTY(Stack *S) {
  */
 int ISFULL(Stack *S) {
     if (S->topIndex >= MAX_POINT_COUNT - 1) {
-        fprintf(stderr, "Stack Overflow\n");
         return 1;
     } else {
         return 0;
@@ -60,6 +58,8 @@ int ISFULL(Stack *S) {
 void PUSH(Stack *S, Point elem) {
     if (!ISFULL(S)) {
         S->items[++S->topIndex] = elem;
+    }else{
+        fprintf(stderr, "Stack Overflow\n");
     }
 }
 
@@ -76,6 +76,8 @@ Point POP(Stack *S) {
     Point temp = {0.0, 0.0};
     if (!ISEMPTY(S)) {
         temp = S->items[S->topIndex--];
+    }else{
+        fprintf(stderr, "Stack underflow\n");
     }
     return temp;
 }

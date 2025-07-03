@@ -75,7 +75,7 @@ int main() {
 
     fprintf(fOut, "%d\n", m);
     for (int i = 0; i < m; i++) {
-        fprintf(fOut, "%.6f %.6f\n", hull[i].x, hull[i].y);
+        fprintf(fOut, "%.6f  %.6f\n", hull[i].x, hull[i].y);
     }
 
     fclose(fOut);
