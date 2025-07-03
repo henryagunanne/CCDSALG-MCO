@@ -11,6 +11,7 @@
 /// @file stack.h
 /// @brief Defines a stack structure and operations for storing 2D points.
 
+#include <stdio.h>
 #include "point.h"  // Include definition for Point and MAX_POINT_COUNT
 
 

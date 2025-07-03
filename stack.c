@@ -25,6 +25,7 @@ void CREATE(Stack *S) {
  */
 int ISEMPTY(Stack *S) {
     if (S->topIndex < 0) {
+        fprintf(stderr, "Stack underflow\n");
         return 1;
     } else {
         return 0;
@@ -40,6 +41,7 @@ int ISEMPTY(Stack *S) {
  */
 int ISFULL(Stack *S) {
     if (S->topIndex >= MAX_POINT_COUNT - 1) {
+        fprintf(stderr, "Stack Overflow\n");
         return 1;
     } else {
         return 0;
