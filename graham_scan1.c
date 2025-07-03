@@ -54,7 +54,7 @@ int findAnchor(Point pts[], int n) {
  * @param hull Output array containing the points on the convex hull in counter-clockwise order.
  * @return Number of points in the convex hull.
  */
-void graham_scan1(Point pts[], int n, Point hull[]) {
+int graham_scan1(Point pts[], int n, Point hull[]) {
 
     clock_t start = clock();
 
@@ -97,6 +97,6 @@ void graham_scan1(Point pts[], int n, Point hull[]) {
     double elapsed = ((double)(end - start)) * 1000.0 / CLOCKS_PER_SEC;
     printf("Elapsed time (Bubble Sort): %.3f ms\n", elapsed);
 
-    
-    // return GET_STACK(&S, hull);
+    // Step 7: Extract points from the stack into the output hull array
+    return GET_STACK(&S, hull);
 }

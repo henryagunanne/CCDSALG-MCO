@@ -7,6 +7,7 @@
 int main() {
     int n;
     char filename[100];
+    float minX, maxX, minY, maxY;
 
     printf("Enter number of points (e.g., 64, 128, ..., 32768): ");
     scanf("%d", &n);
@@ -14,6 +15,12 @@ int main() {
         printf("Invalid number of points.\n");
         return 1;
     }
+
+    printf("Enter x-coordinate range (min max): ");
+    scanf("%f %f", &minX, &maxX);
+
+    printf("Enter y-coordinate range (min max): ");
+    scanf("%f %f", &minY, &maxY);
 
     printf("Enter output filename (e.g., test-input.txt): ");
     scanf("%s", filename);
@@ -24,16 +31,17 @@ int main() {
         return 1;
     }
 
-    srand(time(NULL));
+    srand((unsigned int) time(NULL)); // Seed RNG
     fprintf(f, "%d\n", n);
 
     for (int i = 0; i < n; i++) {
-        double x = ((double)rand() / RAND_MAX) * 1000.0;
-        double y = ((double)rand() / RAND_MAX) * 1000.0;
+        double x = minX + ((double)rand() / RAND_MAX) * (maxX - minX);
+        double y = minY + ((double)rand() / RAND_MAX) * (maxY - minY);
         fprintf(f, "%.6lf %.6lf\n", x, y);
     }
 
     fclose(f);
     printf("File '%s' with %d points generated successfully.\n", filename, n);
+    
     return 0;
 }
