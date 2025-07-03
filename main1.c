@@ -30,9 +30,11 @@ int main() {
 
     // Open input file
     fIn = fopen(inputFile, "r");
-    if(fIn == NULL){
-        fprintf(stderr, "Error opening input file");
-        return 1;
+    while (fIn == NULL) {
+        fprintf(stderr, "Error: Cannot open input file.\n");
+        printf("Try Entering Another File Name!(eg.Filename.txt): ");
+        scanf("%s", inputFile);
+        fIn = fopen(inputFile, "r");
     }
 
     // Read points from input file
