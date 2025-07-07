@@ -2,17 +2,13 @@
  * Programmer: Agunanne Henry, Inocencio Chazwick
  * Code Tester: Agunanne Henry, Inocencio Chazwick
  * 
- * Description: Driver program for testing graham_scan2 (uses heap sort).
+ * Description: Driver program for testing graham_scan1 (uses Bubble sort).
  */
 
 #include <stdio.h>
 #include "point.h"
-#include "stack.h"
-#include "sort.h"
-
 #include "graham_scan1.h"
 
-// int graham_scan1(Point pts[], int n, Point hull[]);
 
 int main() {
     char inputFile[100];

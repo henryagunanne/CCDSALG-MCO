@@ -100,6 +100,4 @@ void graham_scan2 (Point pts[], int n, FILE *fout){
     for (int i = 0; i < count; i++) {
         fprintf(fout, "%.6f  %.6f\n", result[i].x, result[i].y);
      }
-
-
 }

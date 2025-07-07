@@ -2,11 +2,10 @@
  * Programmer: Agunanne Henry, Lu Qinpei
  * Code Tester: Agunanne Henry, Lu Qinpei
  * 
- * Description: Driver program for testing graham_scan1 (uses bubble sort).
+ * Description: Driver program for testing graham_scan2 (uses Heap sort).
  */
 
 #include <stdio.h>
-#include "sort.h"
 #include "graham_scan2.h"
 
 int main() {
