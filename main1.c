@@ -12,7 +12,7 @@
 
 #include "graham_scan1.h"
 
-int graham_scan1(Point pts[], int n, Point hull[]);
+// int graham_scan1(Point pts[], int n, Point hull[]);
 
 int main() {
     char inputFile[100];
