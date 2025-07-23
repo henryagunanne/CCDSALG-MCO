@@ -145,6 +145,8 @@ void readGraphFromFile(struct Graph* g, String8 filename) {
     filename[1] = '\0';
     fclose(f);
 }
+
+
 void list(struct Graph g, String8 filename) {
     int i, j;
     char tempFileName[50];
@@ -174,6 +176,7 @@ void list(struct Graph g, String8 filename) {
 
     fclose(file);
 }
+
 
 void matrix(struct Graph g, String8 filename) {
     int i, j;
@@ -272,6 +275,7 @@ void degree(struct Graph g, String8 filename) {
     fclose(file);
 }
 
+
 void BFS(struct Graph g, String8 startVertex, String8 filename) {
     int i, startIndex = -1;
     FILE* file;
@@ -321,6 +325,7 @@ void BFS(struct Graph g, String8 startVertex, String8 filename) {
 
     fclose(file);
 }
+
 
 void DFS(struct Graph g, String8 startVertex, String8 filename) {
     int i, startIndex = -1;
