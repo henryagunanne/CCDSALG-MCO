@@ -14,13 +14,19 @@ struct Graph {
     int vertexCount;
 };
 
+struct Edge{
+    char u[50];
+    char v[50];
+};
 
 struct Graph initGraph(); //DONE
 int getVertexIndex(struct Graph* g, String8 name, int* indexOut); //DONE
 void addEdge(struct Graph* g, String8 name1, String8 name2); //DONE
 void readGraphFromFile(struct Graph* g, String8 filename); //DONE
+void set(struct Graph g, String8 filename); //DONE
 void list(struct Graph g, String8 filename); // !!! NEED EDIT
 void matrix(struct Graph g, String8 filename); //DONE
 void degree (struct Graph g, String8 filename); //DONE
 void BFS(struct Graph g, String8 startVertex,String8 filename); //DONE
 void DFS(struct Graph g, String8 startVertex,String8 filename); //DONE
+void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file2);
