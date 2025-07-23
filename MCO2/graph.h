@@ -13,6 +13,8 @@ struct Graph {
     String8 names[MAX_VERTICES];
     int vertexCount;
 };
+
+
 struct Graph initGraph(); //DONE
 int getVertexIndex(struct Graph* g, String8 name, int* indexOut); //DONE
 void addEdge(struct Graph* g, String8 name1, String8 name2); //DONE

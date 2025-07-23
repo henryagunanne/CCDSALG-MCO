@@ -30,7 +30,7 @@ int getVertexIndex(struct Graph* g, String8 name, int* indexOut) {
             g->vertexCount++;
             result = 1;
         }
-        }
+    }
 
     
 
