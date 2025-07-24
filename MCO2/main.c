@@ -1,9 +1,13 @@
+
 #include "graph.h"
 
 
 int main() {
     struct Graph graph;
     int i, startIndex = -1;
+    int lineCount;
+    struct Line lines[MAX_VERTICES];
+    
     
     String8 filename;
     String8 startVertex;
@@ -11,10 +15,11 @@ int main() {
     printf("Enter input filename (e.g., G.TXT): ");
     scanf("%s", filename);
 
-    if(readGraphFromFile(&graph, filename)){
+    lineCount = readGraphFromFile(&graph, filename,lines);
+    if(lineCount){
       set(graph,filename);
       degree(graph, filename);
-      list(graph, filename);
+      list(graph, filename,lines,lineCount);
       matrix(graph,filename);
       
       printf("Enter input Start Vertex (e.g., Clark): ");
