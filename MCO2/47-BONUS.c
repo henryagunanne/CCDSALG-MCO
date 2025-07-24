@@ -117,9 +117,6 @@ void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file
         
     }
 
-    
-
     fclose(file);
-
 }
 
