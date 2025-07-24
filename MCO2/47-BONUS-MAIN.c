@@ -18,9 +18,9 @@ int main() {
         scanf("%s", filename2);
 
         if (readGraphFromFile(&graph2, filename2)) {
-          bonus(graph1,graph2, filename1,filename2);
+            bonus(graph1,graph2, filename1,filename2);
         }else{
-          printf("File %s not found", filename2);
+            printf("File %s not found", filename2);
         }
     }else{
         printf("File %s not found", filename1);
