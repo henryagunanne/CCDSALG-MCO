@@ -1,6 +1,6 @@
 /**
- * Programmer: Lu Qinpei
- * Code Tester: Agunanne Henry, Lu Qinpei
+ * Programmer: Agunanne Henry, Lu Qinpei
+ * Code Tester: Agunanne Henry
  * 
  * Description: Header file defining structures and function prototypes for undirected graph representation,
  * input/output operations, and traversal algorithms.

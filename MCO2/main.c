@@ -1,6 +1,6 @@
 /**
- * Programmer: Lu Qinpei
- * Code Tester: Agunanne Henry, Lu Qinpei
+ * Programmer: Agunanne Henry, Lu Qinpei
+ * Code Tester: Agunanne Henry, Chazwick Innocencio
  * 
  * Description: Main program to read a graph from a file, output its representations
  * (set, degree, adjacency list, matrix), and perform BFS and DFS traversals from a chosen start vertex.

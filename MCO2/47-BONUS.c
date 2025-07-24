@@ -1,5 +1,5 @@
 /**
- * Programmer: Lu Qinpei
+ * Programmer: Lu Qinpei, 
  * Code Tester: Agunanne Henry, Lu Qinpei
  * 
  * Description: Implements the subgraph checking algorithm and file output. Compares all vertices and edges
