@@ -107,7 +107,6 @@ int readGraphFromFile(struct Graph* g, String8 filename) {
     */
 
     if (f == NULL){
-        printf("File %s not found", filename);
         return 0;
     }
 

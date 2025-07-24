@@ -1,3 +1,6 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -30,3 +33,5 @@ void degree (struct Graph g, String8 filename); //DONE
 void BFS(struct Graph g, String8 startVertex,String8 filename); //DONE
 void DFS(struct Graph g, String8 startVertex,String8 filename); //DONE
 void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file2);
+
+#endif // GRAPH_H

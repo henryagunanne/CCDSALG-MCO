@@ -1,4 +1,4 @@
-#include "graph.c"
+#include "graph.h"
 
 
 int main() {
@@ -34,6 +34,8 @@ int main() {
         DFS(graph, startVertex, filename);
       }
         
+    }else{
+       printf("File %s not found", filename);
     }
 
   return 0;
