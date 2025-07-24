@@ -133,8 +133,16 @@ int readGraphFromFile(struct Graph* g, String8 filename, struct Line lines[]) {
     for (i = 0; i < edgeCount; i++) {
         addEdge(g, edges[i].u, edges[i].v);
     }
-    filename[1] = '\0';
 
+
+    int dot;
+    for(i = 0; i < strlen(filename); i++){
+        if(filename[i] == '.'){
+            dot = i;
+        }
+    }
+    filename[dot] = '\0';
+    
     fclose(file);
     return n;
 }
@@ -270,7 +278,7 @@ void matrix(struct Graph g, String8 filename) {
     int i, j;
     int maxLen = 0;
     FILE* file;
-    char tempFileName[15];
+    char tempFileName[50];
     strcpy(tempFileName,filename);
     strcat(tempFileName,"-MATRIX.TXT");
     file = fopen(tempFileName, "w");
@@ -317,7 +325,7 @@ void degree(struct Graph g, String8 filename) {
     int idx;
     int degree;
     FILE* file;
-    char tempFileName[15];
+    char tempFileName[50];
     strcpy(tempFileName,filename);
     strcat(tempFileName,"-DEGREE.TXT");
     file = fopen(tempFileName, "w");
@@ -373,7 +381,7 @@ void degree(struct Graph g, String8 filename) {
 void BFS(struct Graph g, String8 startVertex, String8 filename) {
     int i, startIndex = -1;
     FILE* file;
-    char tempFileName[15];
+    char tempFileName[50];
     strcpy(tempFileName,filename);
     strcat(tempFileName,"-BFS.txt");
     file = fopen(tempFileName, "w");
@@ -415,7 +423,7 @@ void BFS(struct Graph g, String8 startVertex, String8 filename) {
 void DFS(struct Graph g, String8 startVertex, String8 filename) {
     int i, startIndex = -1;
     FILE* file;
-    char tempFileName[15];
+    char tempFileName[50];
     strcpy(tempFileName,filename);
     strcat(tempFileName,"-DFS.txt");
     file = fopen(tempFileName, "w");

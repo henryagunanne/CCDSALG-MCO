@@ -1,0 +1,21 @@
+20
+A B F L M O R S T -1
+B A D E -1
+C -1
+D B E F I N -1
+E B D F -1
+F A D E G N -1
+G F H -1
+H G I J -1
+I H J D -1
+J H I P Q -1
+K -1
+L A M N T -1
+M A L N O T -1
+N D F L M O -1
+O A M N P -1
+P J O Q R S T -1
+Q J P -1
+R A P S -1
+S A P R T -1
+T A L M P S -1

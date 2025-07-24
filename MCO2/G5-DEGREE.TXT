@@ -1,0 +1,5 @@
+Anna    3
+Ben     3
+Carl    3
+Elle    2
+Finn    1

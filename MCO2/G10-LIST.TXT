@@ -1,0 +1,10 @@
+Anna->Ben->Carl->Elle->Holly->Iris->Jack->\
+Ben->Anna->Carl->Elle->\
+Carl->Anna->Ben->Dana->Finn->\
+Dana->Carl->Elle->Greg->\
+Elle->Anna->Ben->Dana->\
+Finn->Carl->Holly->Jack->\
+Greg->Dana->Holly->\
+Holly->Anna->Greg->Finn->Iris->\
+Iris->Anna->Holly->Jack->\
+Jack->Anna->Finn->Iris->\

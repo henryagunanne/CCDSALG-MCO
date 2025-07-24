@@ -1,0 +1,2 @@
+V(G10)={Anna,Ben,Carl,Dana,Elle,Finn,Greg,Holly,Iris,Jack}
+E(G)={(Anna,Ben),(Anna,Carl),(Anna,Elle),(Anna,Holly),(Anna,Iris),(Anna,Jack),(Ben,Carl),(Ben,Elle),(Carl,Dana),(Carl,Finn),(Dana,Elle),(Dana,Greg),(Finn,Holly),(Finn,Jack),(Greg,Holly),(Holly,Iris),(Iris,Jack)}

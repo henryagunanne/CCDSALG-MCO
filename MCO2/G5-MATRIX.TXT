@@ -1,0 +1,6 @@
+      Anna  Ben   Carl  Elle  Finn  
+Anna  0     1     1     1     0     
+Ben   1     0     1     1     0     
+Carl  1     1     0     0     1     
+Elle  1     1     0     0     0     
+Finn  0     0     1     0     0     

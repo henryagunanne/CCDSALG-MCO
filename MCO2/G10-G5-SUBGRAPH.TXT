@@ -1,0 +1,12 @@
+Anna +
+Ben +
+Carl +
+Elle +
+Finn +
+(Anna,Ben) +
+(Anna,Carl) +
+(Anna,Elle) +
+(Ben,Carl) +
+(Ben,Elle) +
+(Carl,Finn) +
+G5 is a subgraph of G10.

@@ -1,0 +1,2 @@
+V(G5)={Anna,Ben,Carl,Elle,Finn}
+E(G)={(Anna,Ben),(Anna,Carl),(Anna,Elle),(Ben,Carl),(Ben,Elle),(Carl,Finn)}

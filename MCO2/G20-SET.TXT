@@ -1,0 +1,2 @@
+V(G20)={A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T}
+E(G)={(A,B),(A,F),(A,L),(A,M),(A,O),(A,R),(A,S),(A,T),(B,D),(B,E),(D,E),(D,F),(D,I),(D,N),(E,F),(F,G),(F,N),(G,H),(H,I),(H,J),(I,J),(J,P),(J,Q),(L,M),(L,N),(L,T),(M,N),(M,O),(M,T),(N,O),(O,P),(P,Q),(P,R),(P,S),(P,T),(R,S),(S,T)}

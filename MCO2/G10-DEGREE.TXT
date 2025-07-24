@@ -1,0 +1,10 @@
+Anna    6
+Ben     3
+Carl    4
+Dana    3
+Elle    3
+Finn    3
+Greg    2
+Holly   4
+Iris    3
+Jack    3

@@ -1,0 +1,11 @@
+      Anna  Ben   Carl  Dana  Elle  Finn  Greg  Holly Iris  Jack  
+Anna  0     1     1     0     1     0     0     1     1     1     
+Ben   1     0     1     0     1     0     0     0     0     0     
+Carl  1     1     0     1     0     1     0     0     0     0     
+Dana  0     0     1     0     1     0     1     0     0     0     
+Elle  1     1     0     1     0     0     0     0     0     0     
+Finn  0     0     1     0     0     0     0     1     0     1     
+Greg  0     0     0     1     0     0     0     1     0     0     
+Holly 1     0     0     0     0     1     1     0     1     0     
+Iris  1     0     0     0     0     0     0     1     0     1     
+Jack  1     0     0     0     0     1     0     0     1     0     
