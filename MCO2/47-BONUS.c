@@ -1,6 +1,32 @@
+/**
+ * Programmer: Lu Qinpei
+ * Code Tester: Agunanne Henry, Lu Qinpei
+ * 
+ * Description: Implements the subgraph checking algorithm and file output. Compares all vertices and edges
+ * of a candidate subgraph against a main graph, and prints verification results to a summary file.
+ */
+
+
+/**
+ * @file 47-BONUS.c
+ * @brief Implements the function to check if one graph is a subgraph of another and outputs the result.
+ */
+
 #include "graph.h"
 
-
+/**
+ * @brief Checks if graph2 is a subgraph of graph1 and outputs the result to a file.
+ * 
+ * The function compares vertices and edges of graph2 against those in graph1.
+ * It writes the result to a file named "<file1>-<file2>-SUBGRAPH.TXT".
+ * Each vertex and edge from graph2 is checked and annotated with '+' (present) or '-' (missing).
+ * At the end, a summary line indicates whether graph2 is a subgraph of graph1.
+ *
+ * @param graph1 The main graph.
+ * @param graph2 The candidate subgraph.
+ * @param file1 Filename of the first input graph.
+ * @param file2 Filename of the second input graph.
+ */
 void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file2) {
     int i, j;
 
@@ -15,8 +41,7 @@ void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file
     if (!file) {
         printf("Error: Could not create %s\n", outFile);
     }
-    
-    else{
+    else {
         // --- Sort vertices of graph2 alphabetically ---
         String8 sortedVertices[MAX_VERTICES];
         for (i = 0; i < graph2.vertexCount; i++) {
@@ -89,7 +114,7 @@ void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file
             int found = 0;
             int idx1 = -1, idx2 = -1;
 
-            // Find indces in graph1 for u and v
+            // Find indices in graph1 for u and v
             for (j = 0; j < graph1.vertexCount; j++) {
                 if (strcmp(graph1.names[j], edges[i].u) == 0) idx1 = j;
                 if (strcmp(graph1.names[j], edges[i].v) == 0) idx2 = j;
@@ -114,9 +139,7 @@ void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file
         } else {
             fprintf(file, "%s is NOT a subgraph of %s.\n", file2, file1);
         }
-        
     }
 
     fclose(file);
 }
-

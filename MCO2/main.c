@@ -1,9 +1,19 @@
-#include "graph.h"
+/**
+ * Programmer: Lu Qinpei
+ * Code Tester: Agunanne Henry, Lu Qinpei
+ * 
+ * Description: Main program to read a graph from a file, output its representations
+ * (set, degree, adjacency list, matrix), and perform BFS and DFS traversals from a chosen start vertex.
+ */
+
+
 
 /**
  * @file main.c
  * @brief Main program for reading a graph file, outputting its representations, and performing traversals.
  */
+
+#include "graph.h"
 
 /**
  * @brief Main entry point for the program.
