@@ -22,7 +22,7 @@ struct Edge{
 struct Graph initGraph(); //DONE
 int getVertexIndex(struct Graph* g, String8 name, int* indexOut); //DONE
 void addEdge(struct Graph* g, String8 name1, String8 name2); //DONE
-void readGraphFromFile(struct Graph* g, String8 filename); //DONE
+int readGraphFromFile(struct Graph* g, String8 filename); //DONE
 void set(struct Graph g, String8 filename); //DONE
 void list(struct Graph g, String8 filename); // !!! NEED EDIT
 void matrix(struct Graph g, String8 filename); //DONE
