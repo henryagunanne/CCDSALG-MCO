@@ -107,6 +107,7 @@ int readGraphFromFile(struct Graph* g, String8 filename) {
     */
 
     if (f == NULL){
+        printf("File %s not found", filename);
         return 0;
     }
 
@@ -371,41 +372,29 @@ void BFS(struct Graph g, String8 startVertex, String8 filename) {
     strcat(tempFileName,"-BFS.txt");
     file = fopen(tempFileName, "w");
 
-    // Find index of the starting vertex
-    for (i = 0; i < g.vertexCount; i++) {
-        if (strcmp(g.names[i], startVertex) == 0) {
-            startIndex = i;
-        }
+    // Initialize visited array and queue
+    int visited[MAX_VERTICES];
+    for (i = 0; i < MAX_VERTICES; i++) {
+        visited[i] = 0;
     }
+    int queue[MAX_VERTICES];
+    int front = 0, rear = 0;
 
-    if (startIndex == -1) {
-        printf("Vertex %s not found in the graph.\n", startVertex);
-    }
-    else {
-        // Initialize visited array and queue
-        int visited[MAX_VERTICES];
-        for (i = 0; i < MAX_VERTICES; i++) {
-            visited[i] = 0;
-        }
-        int queue[MAX_VERTICES];
-        int front = 0, rear = 0;
+    // Start BFS from startIndex
+    visited[startIndex] = 1;
+    queue[rear++] = startIndex;
 
-        // Start BFS from startIndex
-        visited[startIndex] = 1;
-        queue[rear++] = startIndex;
+    //printf("BFS starting from %s: ", startVertex);
 
-        //printf("BFS starting from %s: ", startVertex);
+    while (front < rear) {
+        int current = queue[front++];
+        fprintf(file,"%s ", g.names[current]);
 
-        while (front < rear) {
-            int current = queue[front++];
-            fprintf(file,"%s ", g.names[current]);
-
-            // Explore neighbors
-            for (i = 0; i < g.vertexCount; i++) {
-                if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
-                    visited[i] = 1;
-                    queue[rear++] = i;
-                }
+        // Explore neighbors
+        for (i = 0; i < g.vertexCount; i++) {
+            if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
+                visited[i] = 1;
+                queue[rear++] = i;
             }
         }
     }
@@ -421,45 +410,31 @@ void DFS(struct Graph g, String8 startVertex, String8 filename) {
     strcat(tempFileName,"-DFS.txt");
     file = fopen(tempFileName, "w");
 
-    // Find index of the starting vertex
-    for (i = 0; i < g.vertexCount; i++) {
-        if (strcmp(g.names[i], startVertex) == 0) {
-            startIndex = i;
-        }
+    // Initialize visited array and stack
+    int visited[MAX_VERTICES];
+    for (i = 0; i < MAX_VERTICES; i++) {
+        visited[i] = 0;
     }
+    int stack[MAX_VERTICES];
+    int top = -1;
 
-    if (startIndex == -1) {
-        printf("Vertex %s not found in the graph.\n", startVertex);
-    }
-    
-    else{
-        // Initialize visited array and stack
-        int visited[MAX_VERTICES];
-        for (i = 0; i < MAX_VERTICES; i++) {
-            visited[i] = 0;
-        }
-        int stack[MAX_VERTICES];
-        int top = -1;
+    // Start DFS from startIndex
+    stack[++top] = startIndex;
 
-        // Start DFS from startIndex
-        stack[++top] = startIndex;
+    while (top >= 0) {
+        int current = stack[top--];
 
-        while (top >= 0) {
-            int current = stack[top--];
+        if (visited[current] == 0) {
+            visited[current] = 1;
+            fprintf(file,"%s ", g.names[current]);
 
-            if (visited[current] == 0) {
-                visited[current] = 1;
-                fprintf(file,"%s ", g.names[current]);
-
-                // Push neighbors (in reverse order for consistent traversal)
-                for (i = g.vertexCount - 1; i >= 0; i--) {
-                    if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
-                        stack[++top] = i;
-                    }
+            // Push neighbors (in reverse order for consistent traversal)
+            for (i = g.vertexCount - 1; i >= 0; i--) {
+                if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
+                    stack[++top] = i;
                 }
             }
         }
-
     }
 
     fclose(file);
