@@ -371,29 +371,35 @@ void BFS(struct Graph g, String8 startVertex, String8 filename) {
     strcat(tempFileName,"-BFS.txt");
     file = fopen(tempFileName, "w");
 
-    // Initialize visited array and queue
-    int visited[MAX_VERTICES];
-    for (i = 0; i < MAX_VERTICES; i++) {
-        visited[i] = 0;
-    }
-    int queue[MAX_VERTICES];
-    int front = 0, rear = 0;
+    // Find startIndex for startVertex
+    getVertexIndex(&g, startVertex, &startIndex);
 
-    // Start BFS from startIndex
-    visited[startIndex] = 1;
-    queue[rear++] = startIndex;
+    // Only run BFS if startIndex is valid
+    if (startIndex != -1) {
+        // Initialize visited array and queue
+        int visited[MAX_VERTICES];
+        for (i = 0; i < MAX_VERTICES; i++) {
+            visited[i] = 0;
+        }
+        int queue[MAX_VERTICES];
+        int front = 0, rear = 0;
 
-    //printf("BFS starting from %s: ", startVertex);
+        // Start BFS from startIndex
+        visited[startIndex] = 1;
+        queue[rear++] = startIndex;
 
-    while (front < rear) {
-        int current = queue[front++];
-        fprintf(file,"%s ", g.names[current]);
+        //printf("BFS starting from %s: ", startVertex);
 
-        // Explore neighbors
-        for (i = 0; i < g.vertexCount; i++) {
-            if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
-                visited[i] = 1;
-                queue[rear++] = i;
+        while (front < rear) {
+            int current = queue[front++];
+            fprintf(file,"%s ", g.names[current]);
+
+            // Explore neighbors
+            for (i = 0; i < g.vertexCount; i++) {
+                if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
+                    visited[i] = 1;
+                    queue[rear++] = i;
+                }
             }
         }
     }
@@ -409,28 +415,34 @@ void DFS(struct Graph g, String8 startVertex, String8 filename) {
     strcat(tempFileName,"-DFS.txt");
     file = fopen(tempFileName, "w");
 
-    // Initialize visited array and stack
-    int visited[MAX_VERTICES];
-    for (i = 0; i < MAX_VERTICES; i++) {
-        visited[i] = 0;
-    }
-    int stack[MAX_VERTICES];
-    int top = -1;
+    // Find startIndex for startVertex
+    getVertexIndex(&g, startVertex, &startIndex);
 
-    // Start DFS from startIndex
-    stack[++top] = startIndex;
+    // Only run DFS if startIndex is valid
+    if (startIndex != -1) {
+        // Initialize visited array and stack
+        int visited[MAX_VERTICES];
+        for (i = 0; i < MAX_VERTICES; i++) {
+            visited[i] = 0;
+        }
+        int stack[MAX_VERTICES];
+        int top = -1;
 
-    while (top >= 0) {
-        int current = stack[top--];
+        // Start DFS from startIndex
+        stack[++top] = startIndex;
 
-        if (visited[current] == 0) {
-            visited[current] = 1;
-            fprintf(file,"%s ", g.names[current]);
+        while (top >= 0) {
+            int current = stack[top--];
 
-            // Push neighbors (in reverse order for consistent traversal)
-            for (i = g.vertexCount - 1; i >= 0; i--) {
-                if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
-                    stack[++top] = i;
+            if (visited[current] == 0) {
+                visited[current] = 1;
+                fprintf(file,"%s ", g.names[current]);
+
+                // Push neighbors (in reverse order for consistent traversal)
+                for (i = g.vertexCount - 1; i >= 0; i--) {
+                    if (g.adjMatrix[current][i] == 1 && visited[i] == 0) {
+                        stack[++top] = i;
+                    }
                 }
             }
         }
