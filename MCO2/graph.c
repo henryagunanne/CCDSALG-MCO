@@ -30,7 +30,9 @@ int getVertexIndex(struct Graph* g, String8 name, int* indexOut) {
             g->vertexCount++;
             result = 1;
         }
-    } 
+        }
+
+    
 
     return result;
 }
@@ -86,70 +88,113 @@ void readGraphFromFile(struct Graph* g, String8 filename) {
 
     fclose(f);
 }
-*/
 
-int readGraphFromFile(struct Graph* g, String8 filename) {
-    FILE* f = fopen(filename, "r");
+
+void readGraphFromFile(struct Graph* g, String8 filename) {
+    FILE* file = fopen(filename, "r");
     String8 newFilename;
     String8 src;
     int i, n;
     String8 token;
     String8 sources[MAX_VERTICES];
 
-    /*
     // Retry until the file opens
-    while (f == NULL) {
-        printf("File '%s' not found. Try again: ", filename);
-        scanf("%s", newFilename);
-        f = fopen(newFilename, "r");
-        filename = newFilename;
+    if (file == NULL) {
+        printf("File '%s' not found", filename);
     }
-    */
+    
+    else{
+        // Read number of vertices
+        fscanf(file, "%d", &n);
 
-    if (f == NULL){
-        return 0;
-    }
+        *g = initGraph();  // Reset graph
 
-    // Read number of vertices
-    fscanf(f, "%d", &n);
+        // Pass 1: Collect all source vertices in order
+        for (i = 0; i < n; i++) {
+            fscanf(file, "%s", sources[i]); // Read source vertex name
 
-    *g = initGraph();  // Reset graph
-
-    // Pass 1: Collect all source vertices in order
-    for (i = 0; i < n; i++) {
-        fscanf(f, "%s", sources[i]); // Read source vertex name
-
-        // Skip the rest of the line for now (neighbors)
-        do {
-            fscanf(f, "%s", token);
-        } while (strcmp(token, "-1") != 0);
-    }
-
-    // Add all source vertices first (in order)
-    for (i = 0; i < n; i++) {
-        int idx;
-        getVertexIndex(g, sources[i], &idx);  // This will add them in order
-    }
-
-    // Rewind file to re-read edges
-    rewind(f);
-    fscanf(f, "%d", &n); // Skip the vertex count again
-
-    // Pass 2: Actually add edges now
-    for (i = 0; i < n; i++) {
-        fscanf(f, "%s", src); // Source vertex
-
-        fscanf(f, "%s", token); // First neighbor
-        while (strcmp(token, "-1") != 0) {
-            addEdge(g, src, token); // Add edge
-            fscanf(f, "%s", token);
+            // Skip the rest of the line for now (neighbors)
+            do {
+                fscanf(file, "%s", token);
+            } while (strcmp(token, "-1") != 0);
         }
+
+        // Add all source vertices first (in order)
+        for (i = 0; i < n; i++) {
+            int idx;
+            getVertexIndex(g, sources[i], &idx);  // This will add them in order
+        }
+
+        // Rewind file to re-read edges
+        rewind(file);
+        fscanf(file, "%d", &n); // Skip the vertex count again
+
+        // Pass 2: Actually add edges now
+        for (i = 0; i < n; i++) {
+            fscanf(file, "%s", src); // Source vertex
+
+            fscanf(file, "%s", token); // First neighbor
+            while (strcmp(token, "-1") != 0) {
+                addEdge(g, src, token); // Add edge
+                fscanf(file, "%s", token);
+            }
+        }
+
+        filename[1] = '\0';
+    }
+    fclose(file);
+}
+*/
+int readGraphFromFile(struct Graph* g, String8 filename, struct Line lines[]) {
+    FILE* file = fopen(filename, "r");
+    String8 src, token;
+    int i, edgeCount = 0, n;
+
+    struct Edge edges[MAX_VERTICES * (MAX_VERTICES - 1) / 2];
+
+    if (file == NULL) {
+        printf("File '%s' not found\n", filename);
+    }
+    else{
+        // Read number of vertices (lines)
+        fscanf(file, "%d", &n);
+
+        *g = initGraph();  // Reset graph
+
+        // Read line by line: add source immediately, store edges
+        for (i = 0; i < n; i++) {
+            fscanf(file, "%s", src);
+            
+            // Record this line's source vertex
+            strcpy(lines[i].src, src);
+            lines[i].neighborCount = 0;
+
+            // Add the source vertex now (preserves order)
+            int idxSrc;
+            getVertexIndex(g, src, &idxSrc);
+
+            // Now read neighbors, store edges but don't add vertices yet
+            fscanf(file, "%s", token);
+            while (strcmp(token, "-1") != 0) {
+                strcpy(lines[i].neighbors[lines[i].neighborCount++], token);
+                
+                strcpy(edges[edgeCount].u, src);
+                strcpy(edges[edgeCount].v, token);
+                edgeCount++;
+                fscanf(file, "%s", token);
+            }
+        }
+
+        // Now add edges and neighbors (neighbors added after sources)
+        for (i = 0; i < edgeCount; i++) {
+            addEdge(g, edges[i].u, edges[i].v);
+        }
+        filename[1] = '\0';
     }
 
-    filename[1] = '\0';
-    fclose(f);
 
-    return 1;
+    fclose(file);
+    return n;
 }
 
 
@@ -236,7 +281,7 @@ void set(struct Graph g, String8 filename){
     fclose(file);
 }
 
-void list(struct Graph g, String8 filename) {
+void list(struct Graph g, String8 filename, struct Line lines[], int lineCount) {
     int i, j;
     char tempFileName[50];
     strcpy(tempFileName, filename);
@@ -248,14 +293,12 @@ void list(struct Graph g, String8 filename) {
     }
     else{
         // For each vertex in the order they were added (g.names[])
-        for (i = 0; i < g.vertexCount; i++) {
-            fprintf(file, "%s", g.names[i]);
+        for (i = 0; i < lineCount; i++) {
+            fprintf(file, "%s", lines[i].src);
 
             // List all neighbors (in the order they were added)
-            for (j = 0; j < g.vertexCount; j++) {
-                if (g.adjMatrix[i][j] == 1) {
-                    fprintf(file, "->%s", g.names[j]);
-                }
+            for (j = 0; j < lines[i].neighborCount; j++) {
+                fprintf(file, "->%s", lines[i].neighbors[j]);
             }
 
             // End of list with "\"
@@ -272,7 +315,7 @@ void matrix(struct Graph g, String8 filename) {
     FILE* file;
     char tempFileName[15];
     strcpy(tempFileName,filename);
-    strcat(tempFileName,"-MATRIX.txt");
+    strcat(tempFileName,"-MATRIX.TXT");
     file = fopen(tempFileName, "w");
     
     if (!file) {
@@ -314,7 +357,7 @@ void degree(struct Graph g, String8 filename) {
     FILE* file;
     char tempFileName[15];
     strcpy(tempFileName,filename);
-    strcat(tempFileName,"-DEGREE.txt");
+    strcat(tempFileName,"-DEGREE.TXT");
     file = fopen(tempFileName, "w");
 
     // Create and copy vertex names for sorting
@@ -368,14 +411,20 @@ void BFS(struct Graph g, String8 startVertex, String8 filename) {
     FILE* file;
     char tempFileName[15];
     strcpy(tempFileName,filename);
-    strcat(tempFileName,"-BFS.txt");
+    strcat(tempFileName,"-BFS.TXT");
     file = fopen(tempFileName, "w");
 
-    // Find startIndex for startVertex
-    getVertexIndex(&g, startVertex, &startIndex);
+    // Find index of the starting vertex
+    for (i = 0; i < g.vertexCount; i++) {
+        if (strcmp(g.names[i], startVertex) == 0) {
+            startIndex = i;
+        }
+    }
 
-    // Only run BFS if startIndex is valid
-    if (startIndex != -1) {
+    if (startIndex == -1) {
+        printf("Vertex %s not found.\n", startVertex);
+    }
+    else {
         // Initialize visited array and queue
         int visited[MAX_VERTICES];
         for (i = 0; i < MAX_VERTICES; i++) {
@@ -412,14 +461,21 @@ void DFS(struct Graph g, String8 startVertex, String8 filename) {
     FILE* file;
     char tempFileName[15];
     strcpy(tempFileName,filename);
-    strcat(tempFileName,"-DFS.txt");
+    strcat(tempFileName,"-DFS.TXT");
     file = fopen(tempFileName, "w");
 
-    // Find startIndex for startVertex
-    getVertexIndex(&g, startVertex, &startIndex);
+    // Find index of the starting vertex
+    for (i = 0; i < g.vertexCount; i++) {
+        if (strcmp(g.names[i], startVertex) == 0) {
+            startIndex = i;
+        }
+    }
 
-    // Only run DFS if startIndex is valid
-    if (startIndex != -1) {
+    if (startIndex == -1) {
+        printf("Vertex %s not found.\n", startVertex);
+    }
+    
+    else{
         // Initialize visited array and stack
         int visited[MAX_VERTICES];
         for (i = 0; i < MAX_VERTICES; i++) {
@@ -446,7 +502,131 @@ void DFS(struct Graph g, String8 startVertex, String8 filename) {
                 }
             }
         }
+
     }
 
     fclose(file);
 }
+
+void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file2) {
+    int i, j;
+
+    // --- Prepare output filename ---
+    char outFile[100];
+    strcpy(outFile, file1);
+    strcat(outFile, "-");
+    strcat(outFile, file2);
+    strcat(outFile, "-SUBGRAPH.TXT");
+
+    FILE *file = fopen(outFile, "w");
+    if (!file) {
+        printf("Error: Could not create %s\n", outFile);
+    }
+    
+    else{
+        // --- Sort vertices of graph2 alphabetically ---
+        String8 sortedVertices[MAX_VERTICES];
+        for (i = 0; i < graph2.vertexCount; i++) {
+            strcpy(sortedVertices[i], graph2.names[i]);
+        }
+        for (i = 0; i < graph2.vertexCount - 1; i++) {
+            for (j = 0; j < graph2.vertexCount - i - 1; j++) {
+                if (strcmp(sortedVertices[j], sortedVertices[j + 1]) > 0) {
+                    String8 temp;
+                    strcpy(temp, sortedVertices[j]);
+                    strcpy(sortedVertices[j], sortedVertices[j + 1]);
+                    strcpy(sortedVertices[j + 1], temp);
+                }
+            }
+        }
+
+        // --- Check and print vertices ---
+        int allVerticesMatch = 1;
+        for (i = 0; i < graph2.vertexCount; i++) {
+            int found = 0;
+            for (j = 0; j < graph1.vertexCount; j++) {
+                if (strcmp(sortedVertices[i], graph1.names[j]) == 0) {
+                    found = 1;
+                }
+            }
+
+            if (found == 1) {
+                fprintf(file, "%s +\n", sortedVertices[i]);
+            } else {
+                fprintf(file, "%s -\n", sortedVertices[i]);
+                allVerticesMatch = 0;
+            }
+        }
+
+        // --- Collect edges from graph2 ---
+        struct Edge edges[MAX_VERTICES * (MAX_VERTICES - 1) / 2];
+        int edgeCount = 0;
+        for (i = 0; i < graph2.vertexCount; i++) {
+            for (j = i + 1; j < graph2.vertexCount; j++) {
+                if (graph2.adjMatrix[i][j] == 1) {
+                    // Store edge with sorted vertices (u < v)
+                    if (strcmp(graph2.names[i], graph2.names[j]) < 0) {
+                        strcpy(edges[edgeCount].u, graph2.names[i]);
+                        strcpy(edges[edgeCount].v, graph2.names[j]);
+                    } else {
+                        strcpy(edges[edgeCount].u, graph2.names[j]);
+                        strcpy(edges[edgeCount].v, graph2.names[i]);
+                    }
+                    edgeCount++;
+                }
+            }
+        }
+
+        // --- Sort edges alphabetically (by u then v) ---
+        for (i = 0; i < edgeCount - 1; i++) {
+            for (j = 0; j < edgeCount - i - 1; j++) {
+                if (strcmp(edges[j].u, edges[j + 1].u) > 0 ||
+                   (strcmp(edges[j].u, edges[j + 1].u) == 0 &&
+                    strcmp(edges[j].v, edges[j + 1].v) > 0)) {
+                    struct Edge tmp = edges[j];
+                    edges[j] = edges[j + 1];
+                    edges[j + 1] = tmp;
+                }
+            }
+        }
+
+        // --- Check and print edges ---
+        int allEdgesMatch = 1;
+        for (i = 0; i < edgeCount; i++) {
+            int found = 0;
+            int idx1 = -1, idx2 = -1;
+
+            // Find indces in graph1 for u and v
+            for (j = 0; j < graph1.vertexCount; j++) {
+                if (strcmp(graph1.names[j], edges[i].u) == 0) idx1 = j;
+                if (strcmp(graph1.names[j], edges[i].v) == 0) idx2 = j;
+            }
+
+            // Check if edge exists in graph1
+            if (idx1 != -1 && idx2 != -1 && graph1.adjMatrix[idx1][idx2] == 1) {
+                found = 1;
+            }
+
+            if (found == 1) {
+                fprintf(file, "(%s,%s) +\n", edges[i].u, edges[i].v);
+            } else {
+                fprintf(file, "(%s,%s) -\n", edges[i].u, edges[i].v);
+                allEdgesMatch = 0;
+            }
+        }
+
+        // --- Final result ---
+        if (allVerticesMatch == 1 && allEdgesMatch == 1) {
+            fprintf(file, "%s is a subgraph of %s.\n", file2, file1);
+        } else {
+            fprintf(file, "%s is NOT a subgraph of %s.\n", file2, file1);
+        }
+        
+    }
+
+    
+
+    fclose(file);
+
+}
+
