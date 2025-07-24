@@ -1,6 +1,5 @@
 #ifndef GRAPH_H
 #define GRAPH_H
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -22,16 +21,23 @@ struct Edge{
     char v[50];
 };
 
+struct Line{
+    int neighborCount;
+    String8 src;
+    String8 neighbors[MAX_VERTICES];
+};
+
 struct Graph initGraph(); //DONE
 int getVertexIndex(struct Graph* g, String8 name, int* indexOut); //DONE
 void addEdge(struct Graph* g, String8 name1, String8 name2); //DONE
-int readGraphFromFile(struct Graph* g, String8 filename); //DONE
+int readGraphFromFile(struct Graph* g, String8 filename, struct Line lines[]); //DONE
 void set(struct Graph g, String8 filename); //DONE
-void list(struct Graph g, String8 filename); // !!! NEED EDIT
+void list(struct Graph g, String8 filename, struct Line lines[], int lineCount); // !!! NEED EDIT
 void matrix(struct Graph g, String8 filename); //DONE
 void degree (struct Graph g, String8 filename); //DONE
 void BFS(struct Graph g, String8 startVertex,String8 filename); //DONE
 void DFS(struct Graph g, String8 startVertex,String8 filename); //DONE
 void bonus(struct Graph graph1, struct Graph graph2, String8 file1, String8 file2);
+
 
 #endif // GRAPH_H
