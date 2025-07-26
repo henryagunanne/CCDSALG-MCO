@@ -13,7 +13,7 @@
  * @brief Main program for reading a graph file, outputting its representations, and performing traversals.
  */
 
-#include "graph.c"
+#include "graph.h"
 
 /**
  * @brief Main entry point for the program.
