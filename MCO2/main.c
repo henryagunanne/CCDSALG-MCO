@@ -1,5 +1,5 @@
 /**
- * Programmer: Agunanne Henry, Lu Qinpei
+ * Programmer: Agunanne Henry, Lu Qinpei, Chazwick Inocencio
  * Code Tester: Agunanne Henry, Chazwick Innocencio
  * 
  * Description: Main program to read a graph from a file, output its representations
@@ -13,7 +13,7 @@
  * @brief Main program for reading a graph file, outputting its representations, and performing traversals.
  */
 
-#include "graph.h"
+#include "graph.c"
 
 /**
  * @brief Main entry point for the program.
