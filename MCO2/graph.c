@@ -222,7 +222,7 @@ void set(struct Graph g, String8 filename) {
     }
 
     // Write edges in set notation
-    fprintf(file, "E(G)={");
+    fprintf(file, "E(%s)={",filename);
     for (i = 0; i < edgeCount; i++) {
         fprintf(file, "(%s,%s)", edges[i].u, edges[i].v);
         if (i < edgeCount - 1)
