@@ -383,7 +383,7 @@ void BFS(struct Graph g, String8 startVertex, String8 filename) {
     FILE* file;
     char tempFileName[50];
     strcpy(tempFileName,filename);
-    strcat(tempFileName,"-BFS.txt");
+    strcat(tempFileName,"-BFS.TXT");
     file = fopen(tempFileName, "w");
 
     // Find start index for startVertex
@@ -425,7 +425,7 @@ void DFS(struct Graph g, String8 startVertex, String8 filename) {
     FILE* file;
     char tempFileName[50];
     strcpy(tempFileName,filename);
-    strcat(tempFileName,"-DFS.txt");
+    strcat(tempFileName,"-DFS.TXT");
     file = fopen(tempFileName, "w");
 
     // Find start index for startVertex
