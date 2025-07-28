@@ -36,9 +36,9 @@ int main() {
     lineCount = readGraphFromFile(&graph, filename, lines);
     if (lineCount) {
         set(graph, filename);               /**< Output set representation */
-        degree(graph, filename);            /**< Output vertex degrees */
+        degree(graph, filename, lines, lineCount);            /**< Output vertex degrees */
         list(graph, filename, lines, lineCount); /**< Output adjacency list (input order) */
-        matrix(graph, filename);            /**< Output adjacency matrix */
+        matrix(graph, filename, lines, lineCount);            /**< Output adjacency matrix */
         
         printf("Enter input Start Vertex (e.g., Clark): ");
         scanf("%s", startVertex);
