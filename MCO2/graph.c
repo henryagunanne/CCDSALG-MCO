@@ -274,43 +274,43 @@ void list(struct Graph g, String8 filename, struct Line lines[], int lineCount) 
  * @param g The graph to output.
  * @param filename Name of the input file (used to construct output filename).
  */
-void matrix(struct Graph g, String8 filename) {
-    int i, j;
-    int maxLen = 0;
-    FILE* file;
+void matrix(struct Graph g, String8 filename, struct Line lines[], int lineCount) {
+    int i, j, k;
     char tempFileName[50];
-    strcpy(tempFileName,filename);
-    strcat(tempFileName,"-MATRIX.TXT");
+    FILE* file;
+
+    strcpy(tempFileName, filename);
+    strcat(tempFileName, "-MATRIX.TXT");
     file = fopen(tempFileName, "w");
-    
+
     if (!file) {
         printf("Error: Could not create %s\n", tempFileName);
-    }
-    else{
-        // Find max length of vertex names for formatting
-        for (i = 0; i < g.vertexCount; i++) {
-            if (strlen(g.names[i]) > maxLen){
-                maxLen = strlen(g.names[i]);
-            }
-        }
-        
+    } else {
         // Print header
-        fprintf(file,"      ");
-        for (i = 0; i < g.vertexCount; i++) {
-            fprintf(file,"%-6s", g.names[i]);
+        fprintf(file, "      ");
+        for (i = 0; i < lineCount; i++) {
+            fprintf(file, "%-6s", lines[i].src);
         }
-        fprintf(file,"\n");
-        
-        // Print matrix rows
-        for (i = 0; i < g.vertexCount; i++) {
-            fprintf(file,"%-6s", g.names[i]);
-            for (j = 0; j < g.vertexCount; j++) {
-                fprintf(file,"%-6d", g.adjMatrix[i][j]);
+        fprintf(file, "\n");
+
+        // Print rows
+        for (i = 0; i < lineCount; i++) {
+            fprintf(file, "%-6s", lines[i].src);
+            for (j = 0; j < lineCount; j++) {
+                int connected = 0;
+
+                // Check if lines[i].src has lines[j].src as a neighbor
+                for (k = 0; k < lines[i].neighborCount; k++) {
+                    if (strcmp(lines[i].neighbors[k], lines[j].src) == 0) {
+                        connected = 1;
+                    }
+                }
+                fprintf(file, "%-6d", connected);
             }
-            fprintf(file,"\n");
+            fprintf(file, "\n");
         }
+        fclose(file);
     }
-    fclose(file);
 }
 
 
@@ -319,56 +319,50 @@ void matrix(struct Graph g, String8 filename) {
  * @param g The graph to output.
  * @param filename Name of the input file (used to construct output filename).
  */
-void degree(struct Graph g, String8 filename) {
-    int i, j, k;
-    String8 temp;
-    int idx;
-    int degree;
-    FILE* file;
+void degree(struct Graph g, String8 filename, struct Line lines[], int lineCount) {
+    int i, j;
     char tempFileName[50];
-    strcpy(tempFileName,filename);
-    strcat(tempFileName,"-DEGREE.TXT");
+    FILE* file;
+    String8 sorted[MAX_VERTICES], temp;
+
+    strcpy(tempFileName, filename);
+    strcat(tempFileName, "-DEGREE.TXT");
     file = fopen(tempFileName, "w");
 
-    // Copy vertex names for sorting
-    String8 sorted[MAX_VERTICES];
-    for (i = 0; i < g.vertexCount; i++) {
-        strcpy(sorted[i], g.names[i]);
-    }
-
-    // Bubble sort vertex names alphabetically
-    for (i = 0; i < g.vertexCount - 1; i++) {
-        for (j = 0; j < g.vertexCount - i - 1; j++) {
-            if (strcmp(sorted[j], sorted[j + 1]) > 0) {
-                strcpy(temp, sorted[j]);
-                strcpy(sorted[j], sorted[j + 1]);
-                strcpy(sorted[j + 1], temp);
-            }
+    if (!file) {
+        printf("Error: Could not create %s\n", tempFileName);
+    } else {
+        // Copy vertex names for sorting
+        for (i = 0; i < lineCount; i++) {
+            strcpy(sorted[i], lines[i].src);
         }
-    }
 
-    // For each sorted vertex, find index and compute degree
-    for (i = 0; i < g.vertexCount; i++) {
-        idx = -1;
-        degree = 0;
-        j = 0;
-        while (j < g.vertexCount && idx == -1) {
-            if (strcmp(sorted[i], g.names[j]) == 0) {
-                idx = j;
-            }
-            j++;
-        }
-        // Count degree (number of neighbors)
-        for (k = 0; k < g.vertexCount; k++) {
-            if (g.adjMatrix[idx][k] == 1) {
-                degree++;
+        // Sort vertices alphabetically
+        for (i = 0; i < lineCount - 1; i++) {
+            for (j = 0; j < lineCount - i - 1; j++) {
+                if (strcmp(sorted[j], sorted[j + 1]) > 0) {
+                    strcpy(temp, sorted[j]);
+                    strcpy(sorted[j], sorted[j + 1]);
+                    strcpy(sorted[j + 1], temp);
+                }
             }
         }
 
-        // Output to file
-        fprintf(file, "%-8s%d\n",sorted[i], degree);
+        // Compute degree for each vertex using neighbor counts
+        for (i = 0; i < lineCount; i++) {
+            int degreeCount = 0;
+
+            // Find this vertex in lines[] and count its neighbors
+            for (j = 0; j < lineCount; j++) {
+                if (strcmp(sorted[i], lines[j].src) == 0) {
+                    degreeCount = lines[j].neighborCount;
+                }
+            }
+
+            fprintf(file, "%-8s%d\n", sorted[i], degreeCount);
+        }
+        fclose(file);
     }
-    fclose(file);
 }
 
 
